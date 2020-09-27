@@ -1,7 +1,53 @@
+/* GLOBAL SETTING */
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* OTHERS */
 .App {
   text-align: center;
 }
 
+.cards {
+  margin: 0 10px;
+}
+
+.card {
+  border: 1px solid #afafaf;
+  border-radius: 5px;
+  padding: 1em;
+  /* ここでwidthを指定しなくても自動で決まる */
+}
+
+.removedCard {
+  visibility: hidden
+}
+
+.backCard {
+  background-color: #61dafb;
+  color: rgba(0, 0, 0, 0.0); 
+}
+
+.frontCard {
+  border: 1px solid#fb618f;
+}
+
+.wrapper {
+  /* グリッドを宣言*/
+  display: grid;
+  /* カラム数を決める */
+  grid-template-columns: repeat(5, 1fr);
+  /* セルの高さを決める*/
+  grid-auto-rows: minmax(150px, auto);
+  /* ガターの大きさを決める */
+  column-gap: 10px;
+  row-gap: 1em;
+  }
+
+
+/* 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -36,3 +82,4 @@
     transform: rotate(360deg);
   }
 }
+ */
