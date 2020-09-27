@@ -1,13 +1,25 @@
-import React from 'react'
+import React, { useImperativeHandle } from 'react'
 import './App.css'
 
 function ListItem(props) {
-  return <li className="card frontCard">{props.value}</li>
+  return (
+  <li
+  className={"card "+props.face}  
+  >
+  {props.num}
+  </li>
+  )
 }
 
 function CardList(props) {
-  const listItems = props.nums.map( num => {
-    return <ListItem key={num.toString()} value={num} />
+  const listItems = props.arrCards.map( cardObj => {
+    return (
+      <ListItem
+      key={cardObj.id.toString()}
+      num={cardObj.num}
+      face={cardObj.face}
+      />
+    )
   })
 
   return (
@@ -17,34 +29,59 @@ function CardList(props) {
   )
 }
 
-function App() {
-  const cardNumbers = [1,2,3,4,5,1,2,3,4,5]
+class MemoryGame extends React.Component {
+  constructor() {
+    super()
+
+    this.state = {
+      currentTurn: 1,
+      arrCards: initializeCards(),
+    }
+
+    function initializeCards() {
+      /* sample card objects */
+      const arrCards = []    
+      for (let i=1; i<=10; i++) {
+        arrCards.push({id: i, face: "frontCard", num: i<=5 ? i : i-5})
+      }
+      return arrCards
+    }
+  }
+  
+  render () {
   return (
     <div className="App">
       <h1>Memory Game</h1>
       <div className="cards">
-        <CardList nums={cardNumbers}/>
-{/*     
-<ul className="wrapper">
-    <li className="card backCard">{cardNumbers[0]}</li>
-        <li className="card frontCard">{cardNumbers[1]}</li>
-        <li className="card">{cardNumbers[2]}</li>
-        <li className="card">{cardNumbers[3]}</li>
-        <li className="card">{cardNumbers[4]}</li>
-        <li className="card">{cardNumbers[5]}</li>
-        <li className="card">{cardNumbers[6]}</li>
-        <li className="card">{cardNumbers[7]}</li>
-        <li className="card">{cardNumbers[8]}</li>
-        <li className="card">{cardNumbers[9]}</li> 
-                </ul>
-                */}
-
+        <CardList
+          arrCards={this.state.arrCards}
+          />
+      </div>
+      <div>
+        CURRENT TURN: player {this.state.currentTurn}
+      </div>
+      <div>
+        <div>
+          player 1, score: ?                    
+        </div>
+        <div>
+          player 2, score: ?
+        </div>
+      </div>
+      <div>
+      <button>Start</button>
+      <button>Reset</button>
       </div>
     </div>
   )
+  }
 }
 
-const classList = ["card", "frontCard", "backCard", "removedCard"]
+
+function App() {
+  return <MemoryGame />
+}
+
 export default App
 
 
