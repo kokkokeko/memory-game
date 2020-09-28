@@ -4,7 +4,8 @@ import './App.css'
 function ListItem(props) {
   return (
   <li
-  className={"card "+props.face}  
+  className={"card "+props.face}
+  onClick={ (e) => props.handleClickCard(props.id, e)}
   >
   {props.num}
   </li>
@@ -18,6 +19,8 @@ function CardList(props) {
       key={cardObj.id.toString()}
       num={cardObj.num}
       face={cardObj.face}
+      id={cardObj.id}
+      handleClickCard={props.handleClickCard}
       />
     )
   })
@@ -42,12 +45,30 @@ class MemoryGame extends React.Component {
       /* sample card objects */
       const arrCards = []    
       for (let i=1; i<=10; i++) {
-        arrCards.push({id: i, face: "frontCard", num: i<=5 ? i : i-5})
+        arrCards.push({id: i, face: "backCard", num: i<=5 ? i : i-5})
       }
       return arrCards
     }
   }
   
+  handleClickCard = (id, e) => {
+    console.log("the clicked element: ", e.target)
+    console.log("the clicked element's id: ", id)
+    
+    /* find the card object which has the same id*/
+    const arrCards = this.state.arrCards.slice()
+    for(let idx = 0; idx< arrCards.length; idx++) {
+      if (arrCards[idx].id === id) {
+        arrCards[idx].face = "frontCard"
+        break;
+      }
+    }
+
+    this.setState({
+      arrCards: arrCards
+    })
+  }
+
   render () {
   return (
     <div className="App">
@@ -55,6 +76,7 @@ class MemoryGame extends React.Component {
       <div className="cards">
         <CardList
           arrCards={this.state.arrCards}
+          handleClickCard={this.handleClickCard}
           />
       </div>
       <div>
