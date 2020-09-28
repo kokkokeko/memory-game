@@ -91,10 +91,15 @@ class MemoryGame extends React.Component {
         const arrCards = this.state.arrCards.slice()
         const [firstCard, secondCard] = this.state.frontCards
         
+        if (arrCards[firstCard-1].num === arrCards[secondCard-1].num){
+          arrCards[firstCard-1].face = "removedCard"
+          arrCards[secondCard-1].face = "removedCard"
+        } else {
         /* return over the front to back*/
-        /* be sure that id starts from 1, idx starts from 0 */
+        /* be sure that at this time the list of cards are never arranged so id and idx have relationship, id starts from 1, idx starts from 0 */
         arrCards[firstCard-1].face = "backCard"
         arrCards[secondCard-1].face = "backCard"
+        }
 
         this.setState({
           arrCards: arrCards,
