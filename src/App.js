@@ -39,6 +39,7 @@ class MemoryGame extends React.Component {
     this.state = {
       currentTurn: 1,
       arrCards: initializeCards(),
+      frontCards: []
     }
 
     function initializeCards() {
@@ -55,17 +56,31 @@ class MemoryGame extends React.Component {
     console.log("the clicked element: ", e.target)
     console.log("the clicked element's id: ", id)
     
+    /* Testing memo */
+    /* the numbers on the cards are removed from the elements?(not transparency) */
+
+    /* Is it restrected to reverse the already reversed cards ? */
+    if(this.state.frontCards.includes(id)) {
+      return
+    }
+    
+    /* Is it restrected to reverse more cards than two? */
+    if (this.state.frontCards.length === 2) {
+      return
+    }
+
     /* find the card object which has the same id*/
-    const arrCards = this.state.arrCards.slice()
+    const arrCards = this.state.arrCards.slice()    
+    
     for(let idx = 0; idx< arrCards.length; idx++) {
       if (arrCards[idx].id === id) {
         arrCards[idx].face = "frontCard"
-        break;
       }
     }
-
+    
     this.setState({
-      arrCards: arrCards
+      arrCards: arrCards,
+      frontCards: this.state.frontCards.concat([id])
     })
   }
 
