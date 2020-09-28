@@ -84,7 +84,28 @@ class MemoryGame extends React.Component {
     })
   }
 
+  componentDidUpdate() {
+    /* check if two front cards exists, after updating frontCards by setState in handleClickCard */
+    if (this.state.frontCards.length === 2) {
+      const timerId = setTimeout( () => {
+        const arrCards = this.state.arrCards.slice()
+        const [firstCard, secondCard] = this.state.frontCards
+        
+        /* return over the front to back*/
+        /* be sure that id starts from 1, idx starts from 0 */
+        arrCards[firstCard-1].face = "backCard"
+        arrCards[secondCard-1].face = "backCard"
+
+        this.setState({
+          arrCards: arrCards,
+          frontCards: []
+        })
+      }, 1000)
+    }
+    }
+
   render () {
+
   return (
     <div className="App">
       <h1>Memory Game</h1>
