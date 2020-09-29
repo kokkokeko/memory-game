@@ -85,7 +85,7 @@ class MemoryGame extends React.Component {
   }
 
   componentDidUpdate() {
-    /* check if two front cards exists, after updating frontCards by setState in handleClickCard */
+    /* check if two front cards exist, after updating frontCards by setState in handleClickCard */
     if (this.state.frontCards.length === 2) {
       const timerId = setTimeout( () => {
         const arrCards = this.state.arrCards.slice()
@@ -96,7 +96,7 @@ class MemoryGame extends React.Component {
           arrCards[secondCard-1].face = "removedCard"
         } else {
         /* return over the front to back*/
-        /* be sure that at this time the list of cards are never arranged so id and idx have relationship, id starts from 1, idx starts from 0 */
+        /* be sure that at this time the order of a cards list are never arranged so id and idx have relationship, id starts from 1, idx starts from 0 */
         arrCards[firstCard-1].face = "backCard"
         arrCards[secondCard-1].face = "backCard"
         }
