@@ -38,6 +38,7 @@ class MemoryGame extends React.Component {
 
     this.state = {
       currentPlayer: 1,
+      playerScores: {player1: 0, player2: 0},
       arrCards: initializeCards(),
       frontCards: []
     }
@@ -90,12 +91,17 @@ class MemoryGame extends React.Component {
       const timerId = setTimeout( () => {
         const arrCards = this.state.arrCards.slice()
         const [firstCard, secondCard] = this.state.frontCards
-
+        const { playerScores } =  { ...this.state }
         const nextState = {}
 
         if (arrCards[firstCard-1].num === arrCards[secondCard-1].num){
           arrCards[firstCard-1].face = "removedCard"
           arrCards[secondCard-1].face = "removedCard"
+          this.state.currentPlayer === 1 ?
+            playerScores.player1 += 20 :
+            playerScores.player2 += 20
+
+          nextState.playerScores = playerScores
         } else {
         /* return over the front to back*/
         /* be sure that at this time the order of a cards list are never arranged so id and idx have relationship, id starts from 1, idx starts from 0 */
@@ -129,10 +135,10 @@ class MemoryGame extends React.Component {
       </div>
       <div>
         <div>
-          player 1, score: ?                    
+          player 1, score: {this.state.playerScores.player1}
         </div>
         <div>
-          player 2, score: ?
+          player 2, score: {this.state.playerScores.player2}
         </div>
       </div>
       <div>
