@@ -142,10 +142,10 @@ class MemoryGame extends React.Component {
       </div>
       <div>
         <div>
-          player 1, score: {this.state.playerScores.player1}
+          player 1, score: {p1score}
         </div>
         <div>
-          player 2, score: {this.state.playerScores.player2}
+          player 2, score: {p2score}
         </div>
       </div>
       <div>
