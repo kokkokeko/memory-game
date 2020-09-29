@@ -42,21 +42,6 @@ class MemoryGame extends React.Component {
       arrCards: initializeCards(),
       frontCards: []
     }
-
-    function initializeCards() {
-      /* sample card objects */
-      const arrCards = []
-      const cardNums = [1,2,3,4,5,1,2,3,4,5]
-
-      for (let i=0; i<10; i++) {
-        /* assign numbers randamly */
-        const pickNumIdx = Math.floor(Math.random()*10-i)
-        const num = cardNums.splice(pickNumIdx, 1)[0]
-
-        arrCards.push({id: i+1, face: "backCard", num: num})
-      }
-      return arrCards
-    }
   }
   
   handleClickCard = (id, e) => {
@@ -88,6 +73,16 @@ class MemoryGame extends React.Component {
     this.setState({
       arrCards: arrCards,
       frontCards: this.state.frontCards.concat([id])
+    })
+  }
+
+  handleClickReset = (e) => {
+    console.log("handleClickReset")
+    this.setState({
+      currentPlayer: 1,
+      playerScores: {player1: 0, player2: 0},
+      arrCards: initializeCards(),
+      frontCards: []
     })
   }
 
@@ -155,14 +150,27 @@ class MemoryGame extends React.Component {
         </div>
       </div>
       <div>
-      <button>Start</button>
-      <button>Reset</button>
+      <button onClick={this.handleClickReset}>Reset</button>
       </div>
     </div>
   )
   }
 }
 
+function initializeCards() {
+  /* sample card objects */
+  const arrCards = []
+  const cardNums = [1,2,3,4,5,1,2,3,4,5]
+
+  for (let i=0; i<10; i++) {
+    /* assign numbers randamly */
+    const pickNumIdx = Math.floor(Math.random()*10-i)
+    const num = cardNums.splice(pickNumIdx, 1)[0]
+
+    arrCards.push({id: i+1, face: "backCard", num: num})
+  }
+  return arrCards
+}
 
 function App() {
   return <MemoryGame />
