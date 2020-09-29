@@ -45,9 +45,15 @@ class MemoryGame extends React.Component {
 
     function initializeCards() {
       /* sample card objects */
-      const arrCards = []    
-      for (let i=1; i<=10; i++) {
-        arrCards.push({id: i, face: "backCard", num: i<=5 ? i : i-5})
+      const arrCards = []
+      const cardNums = [1,2,3,4,5,1,2,3,4,5]
+
+      for (let i=0; i<10; i++) {
+        /* assign numbers randamly */
+        const pickNumIdx = Math.floor(Math.random()*10-i)
+        const num = cardNums.splice(pickNumIdx, 1)[0]
+
+        arrCards.push({id: i+1, face: "backCard", num: num})
       }
       return arrCards
     }
