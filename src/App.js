@@ -121,6 +121,12 @@ class MemoryGame extends React.Component {
 
   render () {
 
+    const gameEnd = this.state.arrCards.every(
+      card => card.face === "removedCard")
+
+    const {player1: p1score, player2: p2score} = { ...this.state.playerScores }
+    const winner = p1score > p2score ? "player 1" : "player 2"
+
   return (
     <div className="App">
       <h1>Memory Game</h1>
@@ -130,6 +136,7 @@ class MemoryGame extends React.Component {
           handleClickCard={this.handleClickCard}
           />
       </div>
+      { gameEnd && <div><h1>Game End</h1><h2>Winner: {winner}</h2></div>}
       <div>
         CURRENT TURN: player {this.state.currentPlayer}
       </div>
