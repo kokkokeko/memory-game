@@ -1,4 +1,5 @@
 /* GLOBAL SETTING */
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -11,7 +12,7 @@ ul {
 }
 
 .cards {
-  margin: 0 10px;
+  margin: 0 100px;
 }
 
 .card {
@@ -46,6 +47,14 @@ ul {
   row-gap: 1em;
   }
 
+  @media screen and (max-width: 600px) {
+    .cards {
+      margin: 0 50px;
+    }
+    .wrapper {
+      grid-auto-rows: minmax(50px, auto);
+    }
+  }
 
 /* 
 .App-logo {
