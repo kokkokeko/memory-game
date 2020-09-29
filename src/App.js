@@ -37,7 +37,7 @@ class MemoryGame extends React.Component {
     super()
 
     this.state = {
-      currentTurn: 1,
+      currentPlayer: 1,
       arrCards: initializeCards(),
       frontCards: []
     }
@@ -90,7 +90,9 @@ class MemoryGame extends React.Component {
       const timerId = setTimeout( () => {
         const arrCards = this.state.arrCards.slice()
         const [firstCard, secondCard] = this.state.frontCards
-        
+
+        const nextState = {}
+
         if (arrCards[firstCard-1].num === arrCards[secondCard-1].num){
           arrCards[firstCard-1].face = "removedCard"
           arrCards[secondCard-1].face = "removedCard"
@@ -99,12 +101,14 @@ class MemoryGame extends React.Component {
         /* be sure that at this time the order of a cards list are never arranged so id and idx have relationship, id starts from 1, idx starts from 0 */
         arrCards[firstCard-1].face = "backCard"
         arrCards[secondCard-1].face = "backCard"
+        nextState.currentPlayer = this.state.currentPlayer === 1 ? 2 : 1
         }
 
-        this.setState({
-          arrCards: arrCards,
-          frontCards: []
-        })
+      nextState.arrCards = arrCards
+      nextState.frontCards =  []
+
+      this.setState(nextState)
+
       }, 1000)
     }
     }
@@ -121,7 +125,7 @@ class MemoryGame extends React.Component {
           />
       </div>
       <div>
-        CURRENT TURN: player {this.state.currentTurn}
+        CURRENT TURN: player {this.state.currentPlayer}
       </div>
       <div>
         <div>
